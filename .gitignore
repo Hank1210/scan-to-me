@@ -1,0 +1,21 @@
+# Interne Arbeitsunterlagen (nicht öffentlich)
+STARTTEST-fremder-Mac.md
+KONZEPT-Scan-to-me.md
+PLAN.md
+
+# Build-Ergebnisse
+ScanToMe/.build/
+ScanToMe/build
+ScanToMe/build.noindex/
+*.zip
+
+# Swift Package Manager / Xcode
+.swiftpm/
+*.xcodeproj/xcuserdata/
+DerivedData/
+
+# macOS
+.DS_Store
+
+# Arbeitsanweisungen für Claude Code (lokal)
+CLAUDE.md
