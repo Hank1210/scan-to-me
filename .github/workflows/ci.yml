@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ScanToMe
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select the newest Xcode
+        run: |
+          XCODE="$(ls -d /Applications/Xcode*.app | sort -V | tail -1)"
+          sudo xcode-select -s "$XCODE"
+          xcodebuild -version
+          swift --version
+      # Die Live-Tests (Scanner, Claude, Apple-Modell) überspringen sich ohne ihre Umgebungsvariablen.
+      - name: Run tests
+        run: swift test

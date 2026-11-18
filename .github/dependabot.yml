@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # DocKit (gemeinsamer Code mit PDF to me)
+  - package-ecosystem: "swift"
+    directory: "/ScanToMe"
+    schedule:
+      interval: "daily"
+  # Versionen der GitHub Actions in .github/workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
