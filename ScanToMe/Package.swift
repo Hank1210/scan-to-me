@@ -10,8 +10,8 @@ let package = Package(
     ],
     dependencies: [
         // Gemeinsamer Code mit PDF to me (Lokalisierung, Texterkennung, Textebene).
-        // Vorerst lokal; mit der ersten DocKit-Version über die URL eingebunden.
-        .package(path: "../../doc-kit"),
+        // Lokal mitentwickeln: swift package edit doc-kit --path ../../doc-kit
+        .package(url: "https://github.com/Hank1210/doc-kit.git", from: "1.0.0"),
     ],
     targets: [
         // Die gesamte Logik, testbar und ohne Oberfläche.

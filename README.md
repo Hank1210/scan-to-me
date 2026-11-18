@@ -128,6 +128,8 @@ You can change everything later in Settings (⌘,).
 
 The project is a Swift package without an Xcode project. It uses Swift and SwiftUI and has no third-party dependencies. The Claude Messages API is called directly via `URLSession`.
 
+Code shared with [PDF to me](https://github.com/Hank1210/pdf-to-me) (localization, text recognition and the invisible text layer) lives in [DocKit](https://github.com/Hank1210/doc-kit), a separate Swift package under the MIT license. The Swift Package Manager downloads it during the first build, so that build needs an internet connection.
+
 ```sh
 cd ScanToMe
 swift test                 # unit tests; live tests are skipped unless their environment variables are set
