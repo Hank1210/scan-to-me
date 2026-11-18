@@ -30,6 +30,7 @@ final class LocalizationTests: XCTestCase {
     }
 
     func testEnglishSeparatorSheetIsRecognized() throws {
+        try requireTextRecognition()
         Localization.current = .en
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".jpg")
         defer { try? FileManager.default.removeItem(at: url) }

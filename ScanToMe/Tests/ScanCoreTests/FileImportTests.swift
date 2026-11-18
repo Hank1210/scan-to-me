@@ -120,6 +120,7 @@ final class FileImportTests: XCTestCase {
     /// Gemischt: ein Scan, eine Text-PDF im Querformat, ein eingescanntes PDF. Abgelegt wird ein Dokument, in dem
     /// die Text-PDF-Seite unverändert steckt (Originaltext, Originalgröße) und die anderen wie Scans.
     func testMixedJobFilesOriginalPageUnchanged() async throws {
+        try requireTextRecognition()
         let (store, job) = store()
         try store.addPage(to: job.id, jpeg: TestScanner.makePage(text: "Gescannte Seite"), source: .platen, looksBlank: false)
         let landscape = try textPDF("quer.pdf", pages: ["Kontoauszug Musterbank Oktober 2026 mit Umsatzliste"],

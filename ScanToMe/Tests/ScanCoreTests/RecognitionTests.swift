@@ -200,6 +200,7 @@ final class ClaudeRetryTests: XCTestCase {
 
 final class AnalysisPDFTests: XCTestCase {
     func testAnalysisPDFIsSmallAndKeepsText() async throws {
+        try requireTextRecognition()
         let store = JobStore(root: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString))
         defer { try? FileManager.default.removeItem(at: store.root) }
         let job = try store.create()

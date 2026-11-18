@@ -12,6 +12,9 @@ jobs:
   test:
     name: Tests
     runs-on: xcode-27
+    env:
+      # Einige Tests erwarten Datumsangaben in deutscher Zeit; der Runner läuft auf UTC.
+      TZ: Europe/Berlin
     defaults:
       run:
         working-directory: ScanToMe

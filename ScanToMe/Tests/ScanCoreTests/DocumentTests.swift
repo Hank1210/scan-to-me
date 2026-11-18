@@ -24,6 +24,7 @@ final class PDFBuilderTests: XCTestCase {
     }
 
     func testTextLayerIsSearchableAndMetadataSet() throws {
+        try requireTextRecognition()
         let url = try jpeg("1.jpg", TestScanner.makePage(text: "Beitragsbescheid"))
         let text = try TextRecognizer.recognize(jpegURL: url)
         let pdf = try PDFBuilder.build(pages: [PDFPageInput(jpegURL: url, text: text),
@@ -126,6 +127,7 @@ final class DocumentFilerTests: XCTestCase {
 
 final class DocumentProcessorTests: XCTestCase {
     func testJobToSearchablePDF() async throws {
+        try requireTextRecognition()
         let store = JobStore(root: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString))
         defer { try? FileManager.default.removeItem(at: store.root) }
         let job = try store.create()
@@ -156,6 +158,7 @@ actor ProgressRecorder {
 
 final class EndToEndWithoutRecognitionTests: XCTestCase {
     func testScanProcessAndFile() async throws {
+        try requireTextRecognition()
         let base = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: base) }
         let store = JobStore(root: base.appendingPathComponent("Auftraege"))

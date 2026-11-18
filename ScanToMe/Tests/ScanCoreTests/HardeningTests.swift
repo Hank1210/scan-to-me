@@ -125,6 +125,7 @@ final class LaterTrashTests: XCTestCase {
 final class CrashRecoveryTests: XCTestCase {
     /// Absturz nach dem Schreiben der Datei, aber vor dem Vermerk: kein zweites Exemplar beim nächsten Versuch.
     func testFileWrittenBeforeCrashIsNotFiledTwice() async throws {
+        try requireTextRecognition()
         let base = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: base) }
         let store = JobStore(root: base.appendingPathComponent("Auftraege"))

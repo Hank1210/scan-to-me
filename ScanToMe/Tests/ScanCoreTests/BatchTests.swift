@@ -211,6 +211,7 @@ final class RangeRepairTests: XCTestCase {
 
 final class SeparatorTests: XCTestCase {
     func testPrintedSheetIsRecognizedAfterScanning() throws {
+        try requireTextRecognition()
         let pdf = try SeparatorSheet.pdf()
         XCTAssertEqual(PDFDocument(data: pdf)?.pageCount, 1)
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".jpg")
@@ -232,6 +233,7 @@ final class SeparatorTests: XCTestCase {
 
 final class BatchEndToEndTests: XCTestCase {
     func testSeparatorsSplitAndEachDocumentIsFiled() async throws {
+        try requireTextRecognition()
         let base = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: base) }
         let store = JobStore(root: base.appendingPathComponent("Auftraege"))
@@ -280,6 +282,7 @@ final class BatchEndToEndTests: XCTestCase {
     }
 
     func testNonContiguousDocumentKeepsScanOrder() async throws {
+        try requireTextRecognition()
         let base = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: base) }
         let store = JobStore(root: base.appendingPathComponent("Auftraege"))
