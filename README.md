@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="ScanToMe/Support/AppIcon-1024.png" alt="Scan to me app icon" width="160">
+</p>
+
 # Scan to me
 
 A native macOS app that scans paper documents on your network scanner. It turns each scan into a searchable PDF, gives it a meaningful file name and files it in a local folder.
