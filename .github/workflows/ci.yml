@@ -11,15 +11,16 @@ permissions:
 jobs:
   test:
     name: Tests
-    runs-on: macos-latest
+    runs-on: xcode-27
     defaults:
       run:
         working-directory: ScanToMe
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      # Neueste installierte Xcode-Version ohne Beta; Scan to me braucht das SDK von macOS 27.
       - name: Select the newest Xcode
         run: |
-          XCODE="$(ls -d /Applications/Xcode*.app | sort -V | tail -1)"
+          XCODE="$(ls -d /Applications/Xcode_*.app | grep -iv beta | sort -V | tail -1)"
           sudo xcode-select -s "$XCODE"
           xcodebuild -version
           swift --version
