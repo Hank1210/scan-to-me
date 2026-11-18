@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 /// Vorschlag der Inhaltserkennung für ein Dokument. Wird in der Ergebnisliste bearbeitet und im Auftrag gespeichert.

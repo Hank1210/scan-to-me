@@ -1,4 +1,5 @@
 import AppKit
+import DocKit
 import UniformTypeIdentifiers
 import ScanCore
 import SwiftUI

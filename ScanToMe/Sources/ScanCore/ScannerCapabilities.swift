@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 /// Was ein eSCL-Scanner kann, ausgelesen aus `/eSCL/ScannerCapabilities`.

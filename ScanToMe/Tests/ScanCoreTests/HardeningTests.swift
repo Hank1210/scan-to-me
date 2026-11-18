@@ -1,3 +1,4 @@
+import DocKit
 import PDFKit
 import XCTest
 @testable import ScanCore
@@ -182,33 +183,7 @@ final class CrashRecoveryTests: XCTestCase {
     }
 }
 
-final class TimeoutTests: XCTestCase {
-    func testHangingWorkGivesUpInTime() async {
-        let start = Date()
-        do {
-            _ = try await runWithTimeout(seconds: 0.3, timeoutError: TextRecognizerError.timedOut) { () -> Int in
-                Thread.sleep(forTimeInterval: 3); return 1
-            }
-            XCTFail("hätte aufgeben müssen")
-        } catch {
-            XCTAssertEqual(error as? TextRecognizerError, .timedOut)
-        }
-        XCTAssertLessThan(Date().timeIntervalSince(start), 2)
-    }
-
-    func testResultAndErrorsPassThrough() async throws {
-        let value = try await runWithTimeout(seconds: 5, timeoutError: TextRecognizerError.timedOut) { 42 }
-        XCTAssertEqual(value, 42)
-        do {
-            _ = try await runWithTimeout(seconds: 5, timeoutError: TextRecognizerError.timedOut) { () -> Int in
-                throw TextRecognizerError.unreadableImage("x")
-            }
-            XCTFail()
-        } catch {
-            XCTAssertEqual(error as? TextRecognizerError, .unreadableImage("x"))
-        }
-    }
-}
+// Die Tests von `runWithTimeout` liegen in DocKit.
 
 final class FeederWatchTests: XCTestCase {
     private func status(_ jobs: [(String, String, Int)]) -> String {

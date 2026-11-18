@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 /// Macht aus den übernommenen Seiten eines Auftrags ein durchsuchbares PDF im Auftragsordner.
@@ -25,7 +26,7 @@ public struct DocumentProcessor: Sendable {
                 recognized = try await TextRecognizer.recognize(jpegURL: url, timeout: TextRecognizer.pageTimeout)
             } catch TextRecognizerError.timedOut {
                 ScanLog.shared.write("== Texterkennung: Seite \(index + 1) nach \(Int(TextRecognizer.pageTimeout)) s ohne Ergebnis")
-                throw TextRecognizerError.timedOut
+                throw TextRecognitionTimedOut()
             }
             result.append(recognized)
             await progress(index + 1, pages.count)
@@ -208,5 +209,18 @@ public struct DocumentProcessor: Sendable {
             try PDFBuilder.build(pages: inputs, metadata: metadata).write(to: target, options: .atomic)
         }.value
         return target
+    }
+}
+
+/// Die Texterkennung hat bei der Verarbeitung eines Scans nicht reagiert. DocKit meldet das neutral;
+/// Scan to me ergänzt, was der Nutzer hier tun kann.
+public struct TextRecognitionTimedOut: Error, LocalizedError, Equatable {
+    public init() {}
+
+    public var errorDescription: String? {
+        (TextRecognizerError.timedOut.errorDescription ?? "") + " "
+            + loc("Warten Sie eine Minute und wählen Sie „Jetzt verarbeiten“. Klappt es dann noch nicht, "
+                  + "beenden Sie die App (⌘Q) und öffnen Sie sie neu.",
+                  "Wait a minute and choose “Process now”. If it still fails, quit the app (⌘Q) and open it again.")
     }
 }

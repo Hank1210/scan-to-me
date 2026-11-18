@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 public enum APIKeyCheckResult: Equatable, Sendable {

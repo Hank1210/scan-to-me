@@ -1,3 +1,4 @@
+import DocKit
 import ScanCore
 import SwiftUI
 

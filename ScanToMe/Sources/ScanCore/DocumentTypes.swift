@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 /// Ein Dokumenttyp mit zweistelligem Kürzel. Der Hinweis beschreibt, welche Dokumente dazugehören;

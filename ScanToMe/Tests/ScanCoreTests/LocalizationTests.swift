@@ -1,3 +1,4 @@
+import DocKit
 import XCTest
 @testable import ScanCore
 
@@ -6,19 +7,7 @@ final class LocalizationTests: XCTestCase {
         Localization.current = .de
     }
 
-    func testLocPicksCurrentLanguage() {
-        Localization.current = .de
-        XCTAssertEqual(loc("Seite", "Page"), "Seite")
-        Localization.current = .en
-        XCTAssertEqual(loc("Seite", "Page"), "Page")
-    }
-
-    func testSystemDefault() {
-        XCTAssertEqual(AppLanguage.systemDefault(preferred: ["de-DE", "en-US"]), .de)
-        XCTAssertEqual(AppLanguage.systemDefault(preferred: ["en-GB", "de-DE"]), .en)
-        XCTAssertEqual(AppLanguage.systemDefault(preferred: ["fr-FR"]), .en)
-        XCTAssertEqual(AppLanguage.systemDefault(preferred: []), .en)
-    }
+    // `loc` und `AppLanguage.systemDefault` werden in DocKit getestet.
 
     func testMessagesAndLabelsInEnglish() {
         Localization.current = .en
@@ -66,5 +55,17 @@ final class LocalizationTests: XCTestCase {
         let errors = DocumentTypes.validate([CustomTypeEntry(code: "IN", hint: "Irgendwas"), CustomTypeEntry(code: "ST", hint: "Steuer")])
         XCTAssertEqual(errors.first ?? nil, .reservedCode("IN"))
         XCTAssertNil(errors[1])
+    }
+
+    /// Wortgleich mit der Meldung vor der Umstellung auf DocKit.
+    func testRecognitionTimeoutMessageIsUnchanged() {
+        Localization.current = .de
+        XCTAssertEqual(TextRecognitionTimedOut().errorDescription,
+                       "Die Texterkennung von macOS hat nicht reagiert. Warten Sie eine Minute und wählen Sie "
+                       + "„Jetzt verarbeiten“. Klappt es dann noch nicht, beenden Sie die App (⌘Q) und öffnen Sie sie neu.")
+        Localization.current = .en
+        XCTAssertEqual(TextRecognitionTimedOut().errorDescription,
+                       "The macOS text recognition did not respond. Wait a minute and choose “Process now”. "
+                       + "If it still fails, quit the app (⌘Q) and open it again.")
     }
 }

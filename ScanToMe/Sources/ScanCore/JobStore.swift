@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 /// Eine Seite aus einer hinzugefügten PDF-Datei, die unverändert ins abgelegte PDF übernommen wird.

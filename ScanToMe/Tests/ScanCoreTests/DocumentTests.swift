@@ -1,25 +1,9 @@
+import DocKit
 import PDFKit
 import XCTest
 @testable import ScanCore
 
-final class TextRecognizerTests: XCTestCase {
-    func testRecognizesGermanTestPage() throws {
-        let image = try XCTUnwrap(CGImageSourceCreateImageAtIndex(
-            CGImageSourceCreateWithData(try TestScanner.makePage(text: "Stromrechnung Mai") as CFData, nil)!, 0, nil))
-        let page = try TextRecognizer.recognize(image)
-        XCTAssertTrue(page.text.contains("Stromrechnung"), page.text)
-        XCTAssertTrue(page.text.contains("Test-Scanner"), page.text)
-        // Überschrift oben steht vor der kleineren Zeile darunter.
-        XCTAssertTrue(page.lines.first?.text.contains("Stromrechnung") ?? false)
-    }
-
-    func testReadingOrder() {
-        let lines = [RecognizedLine(text: "unten", box: CGRect(x: 0.1, y: 0.1, width: 0.2, height: 0.02)),
-                     RecognizedLine(text: "oben rechts", box: CGRect(x: 0.6, y: 0.9, width: 0.2, height: 0.02)),
-                     RecognizedLine(text: "oben links", box: CGRect(x: 0.1, y: 0.905, width: 0.2, height: 0.02))]
-        XCTAssertEqual(TextRecognizer.sortedInReadingOrder(lines).map(\.text), ["oben links", "oben rechts", "unten"])
-    }
-}
+// Die Tests von `TextRecognizer` liegen in DocKit.
 
 final class PDFBuilderTests: XCTestCase {
     var dir: URL!

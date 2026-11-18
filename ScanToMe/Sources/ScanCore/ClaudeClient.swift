@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 /// Antwort der Messages-API, auf das Nötige reduziert.

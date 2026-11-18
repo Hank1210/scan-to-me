@@ -1,4 +1,5 @@
 import CoreGraphics
+import DocKit
 import Foundation
 import PDFKit
 #if canImport(FoundationModels)

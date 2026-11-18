@@ -1,5 +1,6 @@
 import CoreGraphics
 import CoreText
+import DocKit
 import Foundation
 
 /// Trennblatt zum Ausdrucken. Zwischen zwei Dokumente gelegt, trennt die App dort sicher und nimmt

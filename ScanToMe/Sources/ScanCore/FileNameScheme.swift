@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 /// Ein Baustein des Dateinamens.

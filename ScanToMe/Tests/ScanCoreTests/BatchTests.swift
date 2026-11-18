@@ -1,3 +1,4 @@
+import DocKit
 import PDFKit
 import XCTest
 @testable import ScanCore

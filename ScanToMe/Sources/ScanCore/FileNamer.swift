@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 /// Jahresformat im Dateinamen: Standard `YY-MM-DD`, Option 1 `YYYY-MM-DD`.

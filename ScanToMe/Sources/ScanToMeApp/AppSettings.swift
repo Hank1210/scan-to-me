@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 import ScanCore
 

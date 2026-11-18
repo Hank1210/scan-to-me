@@ -1,3 +1,4 @@
+import DocKit
 import Foundation
 
 /// Ergebnis eines Durchgangs. Auch bei Fehler können schon Seiten übernommen sein.

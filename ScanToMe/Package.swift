@@ -8,13 +8,18 @@ let package = Package(
         .library(name: "ScanCore", targets: ["ScanCore"]),
         .executable(name: "ScanToMeApp", targets: ["ScanToMeApp"]),
     ],
+    dependencies: [
+        // Gemeinsamer Code mit PDF to me (Lokalisierung, Texterkennung, Textebene).
+        // Vorerst lokal; mit der ersten DocKit-Version über die URL eingebunden.
+        .package(path: "../../doc-kit"),
+    ],
     targets: [
         // Die gesamte Logik, testbar und ohne Oberfläche.
         // FoundationModels (Apples Sprachmodell, M7) gibt es erst ab macOS 26: schwach binden, damit die App
         // auch auf älteren Systemen startet. Genutzt wird es nur hinter `#available(macOS 27, *)`.
-        .target(name: "ScanCore", linkerSettings: [.unsafeFlags(["-Xlinker", "-weak_framework", "-Xlinker", "FoundationModels"])]),
+        .target(name: "ScanCore", dependencies: [.product(name: "DocKit", package: "doc-kit")], linkerSettings: [.unsafeFlags(["-Xlinker", "-weak_framework", "-Xlinker", "FoundationModels"])]),
         // SwiftUI-App, bleibt dünn.
-        .executableTarget(name: "ScanToMeApp", dependencies: ["ScanCore"]),
-        .testTarget(name: "ScanCoreTests", dependencies: ["ScanCore"]),
+        .executableTarget(name: "ScanToMeApp", dependencies: ["ScanCore", .product(name: "DocKit", package: "doc-kit")]),
+        .testTarget(name: "ScanCoreTests", dependencies: ["ScanCore", .product(name: "DocKit", package: "doc-kit")]),
     ]
 )

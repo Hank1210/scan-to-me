@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import DocKit
 import ScanCore
 import SwiftUI
 

@@ -1,5 +1,6 @@
 import CoreGraphics
 import CoreText
+import DocKit
 import Foundation
 import ImageIO
 
@@ -95,7 +96,7 @@ public enum PDFBuilder {
             context.fill(a4)
             context.draw(image, in: imageRect)
             if let text = page.text {
-                drawInvisibleText(text, over: imageRect, in: context)
+                InvisibleTextLayer.draw(text, over: imageRect, in: context)
             }
             context.endPDFPage()
         }
@@ -117,30 +118,6 @@ public enum PDFBuilder {
         context.drawPDFPage(page)
         context.restoreGState()
         context.endPDFPage()
-    }
-
-    /// Jede Zeile wird unsichtbar (Text-Render-Modus 3) so gesetzt, dass sie ihren Kasten im Bild genau füllt.
-    static func drawInvisibleText(_ page: RecognizedPage, over imageRect: CGRect, in context: CGContext) {
-        context.saveGState()
-        context.setTextDrawingMode(.invisible)
-        for line in page.lines {
-            let rect = CGRect(x: imageRect.minX + line.box.minX * imageRect.width,
-                              y: imageRect.minY + line.box.minY * imageRect.height,
-                              width: line.box.width * imageRect.width,
-                              height: line.box.height * imageRect.height)
-            guard rect.width > 1, rect.height > 1 else { continue }
-            let font = CTFontCreateWithName("Helvetica" as CFString, rect.height * 0.85, nil)
-            let attributed = NSAttributedString(string: line.text, attributes: [
-                NSAttributedString.Key(kCTFontAttributeName as String): font])
-            let ctLine = CTLineCreateWithAttributedString(attributed)
-            var descent: CGFloat = 0
-            let width = CGFloat(CTLineGetTypographicBounds(ctLine, nil, &descent, nil))
-            guard width > 0 else { continue }
-            context.textMatrix = CGAffineTransform(scaleX: rect.width / width, y: 1)
-            context.textPosition = CGPoint(x: rect.minX, y: rect.minY + descent * 0.5)
-            CTLineDraw(ctLine, context)
-        }
-        context.restoreGState()
     }
 
     /// JPEG-basiertes CGImage, damit Quartz die JPEG-Daten unverändert ins PDF übernimmt.

@@ -1,4 +1,5 @@
 import CoreText
+import DocKit
 import XCTest
 @testable import ScanCore
 
