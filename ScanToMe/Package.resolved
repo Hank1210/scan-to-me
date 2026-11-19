@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Hank1210/doc-kit.git",
       "state" : {
-        "revision" : "fc930ac8e1f475f6218c03e7f9237e22dc992889",
-        "version" : "1.0.0"
+        "revision" : "974948cf341accd0f16ee19f6cb55efacc667672",
+        "version" : "1.0.1"
       }
     }
   ],
